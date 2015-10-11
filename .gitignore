@@ -1,0 +1,7 @@
+# IDE cruft
+*.sublime-project
+.idea
+
+#
+node_modules
+selenium-debug.log

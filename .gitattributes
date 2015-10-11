@@ -1,0 +1,10 @@
+# All text files
+* text eol=lf
+
+# Images /  etc
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.png binary
+*.swf binary
+*.jar binary
