@@ -2,13 +2,19 @@
 *.sublime-project
 .idea
 
-# logs and reports
+# node_modules
 node_modules
+
+# test logs and reports
+test/reports/*
+!test/reports/.gitkeep
+integration/reports/*
+!integration/reports/.gitkeep
 selenium-debug.log
 
 # big fat binaries that don't belong in source control
 bin/*
 !bin/.gitkeep
 
-# build output
+# JavaScript build output
 www/js/app.js

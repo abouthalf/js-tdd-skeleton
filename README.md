@@ -71,4 +71,10 @@ See ```gulpfile.js``` for tasks to do stand alone tests, builds, and the like.
 
 ## Notes
 
+### Browserified, compressed JavaScript is added to .gitignore
+
 Browserified and compressed JavaScript is saved in ```www/js/app.js```. This file is included in .gitignore so it will not be maintained in source control. This assumes that web assets will be built as part of your deployment pipeline. If you are deploying via SFTP or similar, remove this file from .gitignore.
+
+### Tests all over the place
+
+Karma is configured to run JavaScript unit tests in the ```src``` or ```test``` directory. Some developers / project prefer to have tests right next door to the file / module they describe. Others prefer tests live in their own directory. This project supports both.

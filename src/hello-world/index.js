@@ -9,7 +9,7 @@ module.exports = function helloWorld(el) {
 	text = (element.value) ? element.value : element.textContent;
 	document
 		.body
-		.appendChild(document.createElement("p")
+		.appendChild(document.createElement("div")
 			.appendChild(document.createTextNode(text))
 	);
 };

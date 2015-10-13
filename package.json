@@ -4,7 +4,7 @@
   "description": "A skeleton application with system, integration, and unit testing ready to go",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "postinstall": "gulp libs"
   },
   "repository": {
@@ -24,6 +24,16 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
     "gulp-webserver": "^0.9.1",
+    "karma": "^0.13.10",
+    "karma-browserify": "^4.4.0",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-junit-reporter": "^0.3.7",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sinon-chai": "^1.1.0",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.18",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
