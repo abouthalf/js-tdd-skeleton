@@ -61,9 +61,9 @@ The “integration” task ```gulp integration``` or ```gulp int``` will:
 
 ### Run unit tests
 
-The "test" task ```gulp test``` will run all unit tests once.
+The "test" task ```gulp test``` will run all unit tests once and quit.
 
-The “dev” task ```gulp dev``` will start a watcher to run unit tests upon any JavaScript changes.
+The “tdd” task ```gulp tdd``` will start a watcher to run unit tests continuously upon changes to tests or source files. Use this task as part of your TDD workflow.
 
 ### Etcetera
 

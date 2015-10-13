@@ -1,6 +1,7 @@
 var gulp = require("gulp"),
 	download = require("gulp-download"),
 	server = require("gulp-webserver"),
+	karma = require("karma"),
 	browserify = require("browserify"),
 	uglify = require("gulp-uglify"),
 	source = require("vinyl-source-stream"),
@@ -42,17 +43,34 @@ gulp.task("integration", ["build", "server", "nightwatch-int"], function() {});
 gulp.task("int", ["integration"], function() {});
 
 /**
- * Run unit tests
+ * Run unit tests with Karma once and quit
+ *
+ * @see https://github.com/karma-runner/gulp-karma/blob/master/gulpfile.js
  */
-gulp.task("test", function() {});
+gulp.task("test", function(done) {
+	new karma.Server({
+			configFile: __dirname + "/karma.conf.js",
+			singleRun: true // override the config
+		},
+		done).start();
+});
 
 /**
  * Run and watch unit tests
+ * Ctrl + C to quit
+ *
+ * @see https://github.com/karma-runner/gulp-karma/blob/master/gulpfile.js
  */
-gulp.task("dev", function() {});
+gulp.task("tdd", function(done) {
+	new karma.Server({
+			configFile: __dirname + "/karma.conf.js"
+		},
+		done).start();
+});
 
 /**
- * Master build task. Run all build related tasks here
+ * Master build task. Run all build tasks from here
+ * Add additional build tasks to the dependencies
  */
 gulp.task("build", ["browserify"], function(){});
 
@@ -66,7 +84,7 @@ gulp.task("build", ["browserify"], function(){});
  */
 gulp.task("browserify", function(){
 	browserify("./src/app.js",{debug: true}) // browserify with sourcemaps enabled via debug
-		.bundle() // create the bundle
+		.bundle() // create the app bundle
 		.pipe(source("app.js")) // convert browserify text stream into a streaming vinyl file object
 		.pipe(buffer()) // convert streaming vinyl file object to buffered vinyl file object
 		.pipe(sourcemaps.init({loadMaps: true})) // init sourcemaps with source maps loaded from browserify
