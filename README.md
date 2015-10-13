@@ -19,6 +19,7 @@ This project can be cloned or downloaded then altered to suit your needs, or sim
 
 * Basic familiarity with the command line
 * NodeJS v0.12.7 or later is installed
+* Gulp.js installed globally
 * Basic familiarity with the Gulp.js build system
 * Basic familiarity with Git version control (just enough to get a copy of this project onto your computer or development environment)
 * Familiarity with Browserify and CommonJS style modular JavaScript development and dependency management.
@@ -59,6 +60,8 @@ The “integration” task ```gulp integration``` or ```gulp int``` will:
 * Shut down Nightwatch and the local server upon completion or test failure
 
 ### Run unit tests
+
+The "test" task ```gulp test``` will run all unit tests once.
 
 The “dev” task ```gulp dev``` will start a watcher to run unit tests upon any JavaScript changes.
 

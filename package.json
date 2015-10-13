@@ -6,10 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abouthalf/js-tdd-skeleton.git"
+  },
   "keywords": [
     "javascript",
     "tdd"
   ],
   "author": "mb@abouthalf.com",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
 }

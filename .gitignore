@@ -2,6 +2,6 @@
 *.sublime-project
 .idea
 
-#
+# logs and reports
 node_modules
 selenium-debug.log
