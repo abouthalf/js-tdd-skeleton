@@ -5,11 +5,10 @@
 module.exports = function helloWorld(el) {
 	/* @type {HTMLElement} */
 	var element = document.querySelector(el),
-		text;
+		text,
+		div;
 	text = (element.value) ? element.value : element.textContent;
-	document
-		.body
-		.appendChild(document.createElement("div")
-			.appendChild(document.createTextNode(text))
-	);
+	div = document.createElement("div"),
+		div.appendChild(document.createTextNode(text));
+	document.body.appendChild(div);
 };
