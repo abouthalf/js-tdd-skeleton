@@ -4,6 +4,8 @@ This is a skeleton project which includes:
 
 * [Gulp](http://gulpjs.com) for running build and test tasks
 * [Browserify](http://browserify.org) for building JavaScript and managing dependencies
+* [Uglify](https://www.npmjs.com/package/uglify-js) for compressing JavaScript output
+* [Source maps](https://www.npmjs.com/package/gulp-sourcemaps) for easy browser debugging
 * [Karma](https://karma-runner.github.io/) for running unit tests
 * [Mocha](http://mochajs.org) test framework for unit tests
 * [Chai](https://duckduckgo.com/?q=chai+js&t=osx) assertion library 
@@ -33,9 +35,7 @@ The Selenium web-driver should work with your local installation of Firefox by d
 
 Clone or download and decompress this repository. Using your favorite command line tool, change to the project directory. Run ```npm install``` to install dependencies.
 
-The “libs” Gulp task will download the latest Selenium stand-alone server for running automated browser tests in Nightwatch. Alternately, [download the latest version of the Selenium stand-alone server here](http://selenium-release.storage.googleapis.com/index.html) (or whichever version you require) and save the Jar to the ```bin``` directory in the project.
-
-	gulp libs
+After running ```npm install``` the  “libs” Gulp task will run automatically and download the latest Selenium stand-alone server for running automated browser tests in Nightwatch. Alternately, [download the latest version of the Selenium stand-alone server here](http://selenium-release.storage.googleapis.com/index.html) (or whichever version you require) and save the Jar to the ```bin``` directory in the project. You may run ```gulp libs``` at any time to download a fresh copy.
 	
 ## Getting started
 
@@ -68,3 +68,7 @@ The “dev” task ```gulp dev``` will start a watcher to run unit tests upon an
 ### Etcetera
 
 See ```gulpfile.js``` for tasks to do stand alone tests, builds, and the like.
+
+## Notes
+
+Browserified and compressed JavaScript is saved in ```www/js/app.js```. This file is included in .gitignore so it will not be maintained in source control. This assumes that web assets will be built as part of your deployment pipeline. If you are deploying via SFTP or similar, remove this file from .gitignore.

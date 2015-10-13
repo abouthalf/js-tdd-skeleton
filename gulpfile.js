@@ -1,6 +1,11 @@
 var gulp = require("gulp"),
 	download = require("gulp-download"),
-	server = require("gulp-webserver");
+	server = require("gulp-webserver"),
+	browserify = require("browserify"),
+	uglify = require("gulp-uglify"),
+	source = require("vinyl-source-stream"),
+	buffer = require("vinyl-buffer"),
+	sourcemaps = require("gulp-sourcemaps");
 
 /**
  * Build the JavaScript application using Browserify
@@ -53,8 +58,22 @@ gulp.task("build", ["browserify"], function(){});
 
 /**
  * Browserify app.js
+ *
+ * Browserify app.js, add sourcemaps, and uglify
+ * Use vinyl-source-stream and vinyl-buffer to make browserify gulp-friendly
+ *
+ * @see https://wehavefaces.net/gulp-browserify-the-gulp-y-way-bb359b3f9623
  */
-gulp.task("browserify", function(){});
+gulp.task("browserify", function(){
+	browserify("./src/app.js",{debug: true}) // browserify with sourcemaps enabled via debug
+		.bundle() // create the bundle
+		.pipe(source("app.js")) // convert browserify text stream into a streaming vinyl file object
+		.pipe(buffer()) // convert streaming vinyl file object to buffered vinyl file object
+		.pipe(sourcemaps.init({loadMaps: true})) // init sourcemaps with source maps loaded from browserify
+		.pipe(uglify()) // compress JavaScript output
+		.pipe(sourcemaps.write()) // write sourcemaps back to compressed file
+		.pipe(gulp.dest("./www/js")); // output JavaScript
+});
 
 /**
  * Run the development server with live-reload

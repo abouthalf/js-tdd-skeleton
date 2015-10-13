@@ -1,1 +1,3 @@
 Browserified JavaScript lives here.
+
+The output file app.js is added to .gitignore

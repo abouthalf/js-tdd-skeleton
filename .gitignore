@@ -9,3 +9,6 @@ selenium-debug.log
 # big fat binaries that don't belong in source control
 bin/*
 !bin/.gitkeep
+
+# build output
+www/js/app.js
