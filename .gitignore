@@ -5,3 +5,7 @@
 # logs and reports
 node_modules
 selenium-debug.log
+
+# big fat binaries that don't belong in source control
+bin/*
+!bin/.gitkeep

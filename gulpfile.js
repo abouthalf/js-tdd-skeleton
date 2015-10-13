@@ -1,4 +1,5 @@
-var gulp = require("gulp");
+var gulp = require("gulp"),
+	download = require("gulp-download");
 
 /**
  * Build the JavaScript application using Browserify
@@ -10,6 +11,15 @@ gulp.task("default", ["build", "server"], function(){
 	gulp.watch("./src/**/*", ["build"]).on("change", function(e) {
 		console.log("File: " + e.path + " was " + e.type + "…");
 	});
+});
+
+/**
+ * Download additional non-NPM libraries like Selenium
+ */
+gulp.task("libs", function() {
+	var selenium = "http://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar";
+	download(selenium)
+		.pipe(gulp.dest("bin/"));
 });
 
 /**

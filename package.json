@@ -17,6 +17,7 @@
   "author": "mb@abouthalf.com",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-download": "0.0.1"
   }
 }

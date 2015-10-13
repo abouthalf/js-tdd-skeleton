@@ -1,4 +1,4 @@
-# TDD Skeleton project for JavaScript web-applications
+# TDD skeleton project for JavaScript web-applications
 
 This is a skeleton project which includes:
 
