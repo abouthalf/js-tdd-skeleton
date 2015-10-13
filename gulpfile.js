@@ -2,6 +2,7 @@ var gulp = require("gulp"),
 	download = require("gulp-download"),
 	server = require("gulp-webserver"),
 	karma = require("karma"),
+	del = require("del"),
 	browserify = require("browserify"),
 	uglify = require("gulp-uglify"),
 	source = require("vinyl-source-stream"),
@@ -40,7 +41,7 @@ gulp.task("integration", ["build", "server", "nightwatch-int"], function() {});
 /**
  * Alias for "integration"
  */
-gulp.task("int", ["integration"], function() {});
+gulp.task("int", ["integration"]);
 
 /**
  * Run unit tests with Karma once and quit
@@ -72,7 +73,14 @@ gulp.task("tdd", function(done) {
  * Master build task. Run all build tasks from here
  * Add additional build tasks to the dependencies
  */
-gulp.task("build", ["browserify"], function(){});
+gulp.task("build", ["clean", "browserify"]);
+
+/**
+ * Clean the JavaScript output directory
+ */
+gulp.task("clean", function(){
+	return del("./www/js/**/*.js");
+});
 
 /**
  * Browserify app.js
@@ -82,7 +90,7 @@ gulp.task("build", ["browserify"], function(){});
  *
  * @see https://wehavefaces.net/gulp-browserify-the-gulp-y-way-bb359b3f9623
  */
-gulp.task("browserify", function(){
+gulp.task("browserify", ["clean"], function(){
 	browserify("./src/app.js",{debug: true}) // browserify with sourcemaps enabled via debug
 		.bundle() // create the app bundle
 		.pipe(source("app.js")) // convert browserify text stream into a streaming vinyl file object
