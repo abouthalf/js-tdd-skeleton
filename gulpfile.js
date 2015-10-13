@@ -1,5 +1,6 @@
 var gulp = require("gulp"),
-	download = require("gulp-download");
+	download = require("gulp-download"),
+	server = require("gulp-webserver");
 
 /**
  * Build the JavaScript application using Browserify
@@ -56,9 +57,21 @@ gulp.task("build", ["browserify"], function(){});
 gulp.task("browserify", function(){});
 
 /**
- * Run the development server
+ * Run the development server with live-reload
+ * Automatically open the default browser
+ *
+ * Ctrl+C to stop the server
+ *
+ * @see https://www.npmjs.com/package/gulp-webserver
  */
-gulp.task("server", function(){});
+gulp.task("server", function(){
+	gulp.src("www/")
+		.pipe(server({
+			livereload: true,
+			log: true,
+			open: true
+		}));
+});
 
 /**
  * Run all Nightwatch tests
