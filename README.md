@@ -15,7 +15,9 @@ This is a skeleton project which includes:
 
 The project is to provides a directory structure and build configuration to support test driven development for a browser based JavaScript application.
 
-This project can be cloned or downloaded then altered to suit your needs, or simply be used as a one-stop reference implementation.
+## How to use this project
+
+Download or clone this project as a starting point for your own project. Add your own HTML, CSS, JavaScript, and Gulp tasks as needed. *Or*, simply use this project as a reference when creating a new project by hand.
 
 ## Requirements and assumptions
 
@@ -26,6 +28,7 @@ This project can be cloned or downloaded then altered to suit your needs, or sim
 * Basic familiarity with Git version control (just enough to get a copy of this project onto your computer or development environment)
 * Familiarity with Browserify and CommonJS style modular JavaScript development and dependency management.
 * Firefox browser installed 
+* Java 1.7 or newer installed (required for the Selenium server)
 
 This project provides example functional integration tests using Nightwatch and Selenium as well as unit tests using Karma, Mocha, and Chai. Karma tests will run in the headless PhantomJS browser. 
 
@@ -55,9 +58,20 @@ The default Gulp task ```gulp default``` or simply ```gulp``` will:
 The “integration” task ```gulp integration``` or ```gulp int``` will:
 
 * Build the JavaScript application using Browserify
-* Start the local development server
+* Start the local test server
 * Run all functional tests tagged with “integration” using Nightwatch
 * Shut down Nightwatch and the local server upon completion or test failure
+
+### Run smoke tests
+
+The “smoke” task ```gulp smoke``` will:
+
+* Build the JavaScript application using Browserify
+* Start the local test server
+* Run all functional tests using Nightwatch
+* Shut down Nightwatch and the local server upon completion or test failure
+
+Why two functional test suites? You may want to differentiate one-off edge case tests or strange bug-fix tests from your regular integration test suite. However, you may want to run these before a production build or deployment to ensure you don’t have a bug regression.
 
 ### Run unit tests
 

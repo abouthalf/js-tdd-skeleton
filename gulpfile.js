@@ -1,6 +1,8 @@
 var gulp = require("gulp"),
 	download = require("gulp-download"),
 	server = require("gulp-webserver"),
+	nightwatch = require("gulp-nightwatch"),
+	exit = require("gulp-exit"),
 	karma = require("karma"),
 	del = require("del"),
 	browserify = require("browserify"),
@@ -32,16 +34,23 @@ gulp.task("libs", function() {
 
 /**
  * Build the JavaScript application using Browserify
- * Start the local development server
+ * Start the local test server
  * Run all functional tests tagged with “integration” using Nightwatch
  * Shut down Nightwatch and the local server upon completion or test failure
  */
-gulp.task("integration", ["build", "server", "nightwatch-int"], function() {});
+gulp.task("integration", ["build", "test-server", "nightwatch-int"]);
 
 /**
  * Alias for "integration"
  */
 gulp.task("int", ["integration"]);
+
+/**
+ * Build the JavaScript application using Browserify
+ * Start the local test server
+ * Run all functional tests
+ */
+gulp.task("smoke", ["build", "test-server", "nightwatch"]);
 
 /**
  * Run unit tests with Karma once and quit
@@ -73,12 +82,17 @@ gulp.task("tdd", function(done) {
  * Master build task. Run all build tasks from here
  * Add additional build tasks to the dependencies
  */
-gulp.task("build", ["clean", "browserify"]);
+gulp.task("build", ["clean", "browserify"], function(done){
+	// the done() callback indicates to gulp that the task is complete.
+	// This is used when one task must finish before another
+	done();
+});
 
 /**
  * Clean the JavaScript output directory
  */
 gulp.task("clean", function(){
+	// "del" returns a promise. We return the promise so gulp knows when this task is done.
 	return del("./www/js/**/*.js");
 });
 
@@ -109,7 +123,7 @@ gulp.task("browserify", ["clean"], function(){
  *
  * @see https://www.npmjs.com/package/gulp-webserver
  */
-gulp.task("server", function(){
+gulp.task("server", ["build"], function(){
 	gulp.src("www/")
 		.pipe(server({
 			livereload: true,
@@ -119,11 +133,37 @@ gulp.task("server", function(){
 });
 
 /**
+ * Run the development server, configured for integration testing.
+ * Run without auto-open or live-reload.
+ */
+gulp.task("test-server", ["build"], function() {
+	return gulp.src("www/")
+		.pipe(server({
+			livereload: false,
+			log: false,
+			open: false
+		}));
+});
+
+/**
  * Run all Nightwatch tests
  */
-gulp.task("nightwatch", function() {});
+gulp.task("nightwatch", ["test-server"], function() {
+	return gulp.src("./integration/**/*.test.js")
+		.pipe(nightwatch({
+			configFile: "./nightwatch.json"
+		}))
+		.pipe(exit()); // force exit to kill the server
+});
 
 /**
  * Run Nightwatch integration tests
  */
-gulp.task("nightwatch-int", function() {});
+gulp.task("nightwatch-int", ["test-server"], function() {
+	return gulp.src("./integration/**/*.test.js")
+		.pipe(nightwatch({
+			configFile: "./nightwatch.json",
+			cliArgs: ["--tag integration"]
+		}))
+		.pipe(exit()); // force exit to kill the server
+});
